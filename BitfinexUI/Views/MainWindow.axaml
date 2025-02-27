@@ -15,11 +15,14 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-	<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-		<TextBlock Text="{Binding Greeting}" FontSize="20" Margin="10" />
 
-		<!-- Кнопка для загрузки трейдов -->
-		<Button Content="Load Trades" Command="{Binding LoadTradesCommand}" Margin="10" />
-	</StackPanel>
-
+	<TabControl ItemsSource="{Binding Tabs}">
+		<!-- Шаблон для заголовка вкладки -->
+		<TabControl.ItemTemplate>
+			<DataTemplate DataType="vm:RestViewModel">
+				<TextBlock Text="{Binding Header}" />
+			</DataTemplate>
+		</TabControl.ItemTemplate>		
+	</TabControl>
+	
 </Window>

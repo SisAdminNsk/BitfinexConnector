@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using BitfinexUI.ViewModels;
 
 namespace BitfinexUI.Views
 {

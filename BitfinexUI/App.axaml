@@ -8,8 +8,21 @@
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-  
+
     <Application.Styles>
+		<Style Selector="Button">
+			<Setter Property="Background" Value="#62cfb5"/>
+			<Setter Property="Foreground" Value="White"/>
+			<!-- Цвет текста -->
+			<Setter Property="BorderBrush" Value="#62cfb5"/>
+			<!-- Цвет границы -->
+			<Setter Property="BorderThickness" Value="2"/>
+			<!-- Толщина границы -->
+			<Setter Property="Padding" Value="10"/>
+			<!-- Отступы внутри кнопки -->
+		</Style>
         <FluentTheme />
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
     </Application.Styles>
+
 </Application>

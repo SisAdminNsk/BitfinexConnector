@@ -28,4 +28,11 @@
   <ItemGroup>
     <ProjectReference Include="..\BitfinexConnector\BitfinexConnector.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Views\RestView.axaml.cs">
+      <DependentUpon>RestView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
