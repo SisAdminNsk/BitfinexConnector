@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using StockExchangeCore;
+using StockExchangeCore.Abstract;
+using StockExchangeCore.StockModels;
 
 namespace BitfinexConnector
 {

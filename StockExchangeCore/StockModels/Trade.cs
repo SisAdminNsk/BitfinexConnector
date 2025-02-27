@@ -1,4 +1,4 @@
-﻿namespace StockExchangeCore
+﻿namespace StockExchangeCore.StockModels
 {
     public class Trade
     {

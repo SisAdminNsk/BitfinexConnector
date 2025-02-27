@@ -1,5 +1,5 @@
 ﻿using BitfinexConnector;
-using StockExchangeCore;
+using StockExchangeCore.Abstract;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;

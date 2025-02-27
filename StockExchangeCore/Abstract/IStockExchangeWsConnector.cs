@@ -1,4 +1,6 @@
-﻿namespace StockExchangeCore
+﻿using StockExchangeCore.StockModels;
+
+namespace StockExchangeCore.Abstract
 {
     public interface IStockExchangeWsConnector
     {
