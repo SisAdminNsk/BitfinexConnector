@@ -10,9 +10,13 @@ namespace BitfinexUI.ViewModels
         private string _header = "";
         public string Header { get => _header; private set => this.RaiseAndSetIfChanged(ref _header, value); }
 
-        public TradesViewModel(string header)
+        private readonly RestViewModel _restViewModel;
+        public TradesViewModel(string header, RestViewModel restViewModel)
         {
             Header = header;
+            _restViewModel = restViewModel;
+
+            Trades = new ObservableCollection<Trade>();
         }
 
         private ObservableCollection<Trade> _trades = new();
@@ -22,13 +26,11 @@ namespace BitfinexUI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _trades, value);
         }
 
-        public TradesViewModel()
-        {
-            Trades = new ObservableCollection<Trade>();
-        }
-
         public void LoadTrades()
         {
+            var selectedPair = _restViewModel.SelectedCurrencyPair; // будет использоваться для запроса к коннектору биржи
+           // var value = selectedPair.;
+
             // Пример: Загружаем тестовые данные
             var trades = new ObservableCollection<Trade>
             {

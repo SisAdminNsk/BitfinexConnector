@@ -1,10 +1,29 @@
 ﻿using ReactiveUI;
+using System;
 using System.Collections.ObjectModel;
 
 namespace BitfinexUI.ViewModels
 {
     public class RestViewModel : ViewModelBase
     {
+        private string _selectedCurrencyPair;
+        public string SelectedCurrencyPair
+        {
+            get => _selectedCurrencyPair;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedCurrencyPair, value);
+            }
+        }
+
+        public ObservableCollection<string> CurrencyPairs { get; } = new ObservableCollection<string>
+        {
+            "BTCUSD",
+            "XRPUSD",
+            "XMRUSD",
+            "DASHUSD"
+        };
+
         private ObservableCollection<ViewModelBase> _tabs =
             new ObservableCollection<ViewModelBase>();
 
@@ -20,7 +39,9 @@ namespace BitfinexUI.ViewModels
         {
             Header = header;
 
-            Tabs.Add(new TradesViewModel("Trades"));
+            Tabs.Add(new TradesViewModel("Trades", this));
+
+            SelectedCurrencyPair = CurrencyPairs[0];
         }
     }
 }

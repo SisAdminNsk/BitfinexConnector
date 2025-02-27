@@ -14,11 +14,9 @@
 
 		<Grid Grid.Row="0" ColumnDefinitions="200, *">
 			<TextBlock Text="Выберите валютную пару:" Grid.Column="0" VerticalAlignment="Center" Margin="0 0 10 0"/>
-			<ComboBox x:Name="CurrencyPairsComboBox" Grid.Column="1" HorizontalAlignment="Stretch">
-				<ComboBoxItem>BTCUSD</ComboBoxItem>
-				<ComboBoxItem>XRPUSD</ComboBoxItem>
-				<ComboBoxItem>XMRUSD</ComboBoxItem>
-				<ComboBoxItem>DASHUSD</ComboBoxItem>
+			<ComboBox x:Name="CurrencyPairsComboBox" 
+					  ItemsSource="{Binding CurrencyPairs}" 
+					  SelectedItem="{Binding SelectedCurrencyPair}" Grid.Column="1" HorizontalAlignment="Stretch">
 			</ComboBox>
 		</Grid>
 
