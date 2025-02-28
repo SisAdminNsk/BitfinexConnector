@@ -1,23 +1,22 @@
 ﻿using ReactiveUI;
 using StockExchangeCore.StockModels;
 using System.Collections.ObjectModel;
-using System;
+using StockExchangeCore.Abstract;
+using BitfinexConnector;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BitfinexUI.ViewModels
 {
-    public class TradesViewModel : ViewModelBase
+    public class TradesViewModel : PageViewModel
     {
-        private string _header = "";
-        public string Header { get => _header; private set => this.RaiseAndSetIfChanged(ref _header, value); }
+        public ICommand LoadTradesCommand { get; }
 
+        private readonly IStockExchangeRestConnector _stockExchange;
         private readonly RestViewModel _restViewModel;
-        public TradesViewModel(string header, RestViewModel restViewModel)
-        {
-            Header = header;
-            _restViewModel = restViewModel;
 
-            Trades = new ObservableCollection<Trade>();
-        }
+        private int _tradesCount = 20;
+        public int TradesCount { get => _tradesCount; private set => this.RaiseAndSetIfChanged(ref _tradesCount, value); }
 
         private ObservableCollection<Trade> _trades = new();
         public ObservableCollection<Trade> Trades
@@ -26,36 +25,39 @@ namespace BitfinexUI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _trades, value);
         }
 
-        public void LoadTrades()
+        public TradesViewModel(string header, RestViewModel restViewModel, IStockExchangeRestConnector stockExchange) : base(header)
         {
-            var selectedPair = _restViewModel.SelectedCurrencyPair; // будет использоваться для запроса к коннектору биржи
-           // var value = selectedPair.;
+            _restViewModel = restViewModel;
 
-            // Пример: Загружаем тестовые данные
-            var trades = new ObservableCollection<Trade>
+            _stockExchange = stockExchange;
+
+            LoadTradesCommand = new RelayCommand(async () => await LoadTradesAsync());
+        }
+
+        public void IncreaseTradesCount()
+        {
+            if(TradesCount < 100)
             {
-                new Trade
-                {
-                    Pair = "BTCUSD",
-                    Price = 50000,
-                    Amount = 0.1m,
-                    Side = "buy",
-                    Time = DateTimeOffset.Now,
-                    Id = "12345"
-                },
-                new Trade
-                {
-                    Pair = "BTCUSD",
-                    Price = 51000,
-                    Amount = 0.2m,
-                    Side = "sell",
-                    Time = DateTimeOffset.Now,
-                    Id = "67890"
-                }
-            };
+                TradesCount++;
+            }
+        }
 
-            // Очищаем коллекцию и добавляем новые данные
+        public void DecreaseTradesCount()
+        {
+            if(TradesCount > 0)
+            {
+                TradesCount--;
+            }
+        }
+
+        public async Task LoadTradesAsync()
+        {
+            var selectedPair = _restViewModel.SelectedCurrencyPair; 
+
+            var trades = await _stockExchange.GetNewTradesAsync(selectedPair, TradesCount);
+
             Trades.Clear();
+    
             foreach (var trade in trades)
             {
                 Trades.Add(trade);

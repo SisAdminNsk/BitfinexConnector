@@ -13,7 +13,7 @@
 		<!-- Выбор валютной пары -->
 
 		<Grid Grid.Row="0" ColumnDefinitions="200, *">
-			<TextBlock Text="Выберите валютную пару:" Grid.Column="0" VerticalAlignment="Center" Margin="0 0 10 0"/>
+			<TextBlock Text="Choice currency pair:" Grid.Column="0" VerticalAlignment="Center" Margin="10 0 0 0"/>
 			<ComboBox x:Name="CurrencyPairsComboBox" 
 					  ItemsSource="{Binding CurrencyPairs}" 
 					  SelectedItem="{Binding SelectedCurrencyPair}" Grid.Column="1" HorizontalAlignment="Stretch">
@@ -24,7 +24,7 @@
 			<TabControl Margin="0 20 0 10" ItemsSource="{Binding Tabs}">
 				<!-- Шаблон для заголовка вкладки -->
 				<TabControl.ItemTemplate>
-					<DataTemplate DataType="vm:TradesViewModel">
+					<DataTemplate DataType="vm:PageViewModel">
 						<TextBlock Text="{Binding Header}" />
 					</DataTemplate>
 				</TabControl.ItemTemplate>

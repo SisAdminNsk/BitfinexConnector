@@ -9,8 +9,15 @@
              x:Class="BitfinexUI.Views.TradesView">
 	
 	<Grid RowDefinitions="Auto,*" Margin="10">
-		<!-- Кнопка для запроса данных -->
-		<Button Content="Загрузить данные" Click="OnLoadDataClick" Grid.Row="0" HorizontalAlignment="Left" Width="150" Margin="0 0 0 10"/>
+
+		<Grid Grid.Row="0" ColumnDefinitions="Auto,Auto">
+			<!-- Кнопка для запроса данных -->
+			<Button Content="Fetch trades" Command="{Binding LoadTradesCommand}" Grid.Row="0" HorizontalAlignment="Left" Width="150" Margin="0 0 0 10"/>
+			<!-- Кнопка для запроса данных -->
+			<ButtonSpinner x:Name="TradesCountSpinner" Spin="OnButtonSpinnerSpin" Grid.Column="1" Margin="5 0 0 10" ButtonSpinnerLocation="Right">
+				<TextBlock Text="{Binding TradesCount, Mode=TwoWay}"></TextBlock>
+			</ButtonSpinner>
+		</Grid>
 
 		<!-- Таблица для отображения данных -->
 

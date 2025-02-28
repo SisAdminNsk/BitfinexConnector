@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using BitfinexUI.ViewModels;
 using System;
+
 
 namespace BitfinexUI.Views;
 
@@ -24,9 +24,16 @@ public partial class TradesView : UserControl
             this.vm = viewModel;
         }
     }
-
-    private void OnLoadDataClick(object sender, RoutedEventArgs e)
+    private void OnButtonSpinnerSpin(object? sender, Avalonia.Controls.SpinEventArgs e)
     {
-        vm.LoadTrades();
+        if(e.Direction == SpinDirection.Increase)
+        {
+            vm.IncreaseTradesCount();
+        }
+
+        if(e.Direction == SpinDirection.Decrease)
+        {
+            vm.DecreaseTradesCount(); 
+        }       
     }
 }
