@@ -2,7 +2,6 @@
 using StockExchangeCore.StockModels;
 using System.Collections.ObjectModel;
 using StockExchangeCore.Abstract;
-using BitfinexConnector;
 using System.Threading.Tasks;
 using System.Windows.Input;
 

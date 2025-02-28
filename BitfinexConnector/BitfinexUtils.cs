@@ -2,30 +2,54 @@
 
 namespace BitfinexConnector
 {
-    internal static class BitfinexUtils
+    public static class BitfinexUtils
     {
-        public static string ConvertPeriodToTimeFrame(int periodInSec)
+        public static int ConvertPeriodToTimeFrame(string periodString)
         {
-            return periodInSec switch
-            {
-                60 => "1m",      // 1 минута
-                300 => "5m",     // 5 минут
-                900 => "15m",    // 15 минут
-                1800 => "30m",   // 30 минут
-                3600 => "1h",    // 1 час
-                10800 => "3h",   // 3 часа
-                21600 => "6h",   // 6 часов
-                43200 => "12h",  // 12 часов
-                86400 => "1D",   // 1 день
-                604800 => "1W",  // 1 неделя
-                1209600 => "14D",// 14 дней
-                2592000 => "1M", // 1 месяц (30 дней)
+            var availablePeriods = GetAvailablePeriodInSec();
 
-                _ => throw new ArgumentException("Неподдерживаемый период." +
-                " Доступные значения: 60, 300, 900, 1800, 3600, 10800, 21600, 43200, 86400, 604800, 1209600, 2592000 секунд.")
-            };
+            if (!availablePeriods.ContainsKey(periodString))
+            {
+                throw new ArgumentException("Неподдерживаемый период." +
+              " Доступные значения: 1m, 5m, 15m, 30m, 1h, 3h, 6h, 12h, 1D, 1W, 14D, 1M.");
+            }
+
+            return availablePeriods[periodString];
         }
 
+        public static string ConvertPeriodToTimeFrame(int periodInSec)
+        {
+            var availablePeriods = GetAvailablePeriodInSec();
+
+            var period = availablePeriods.FirstOrDefault(x => x.Value == periodInSec).Key;
+
+            if (!availablePeriods.ContainsKey(period))
+            {
+                throw new ArgumentException("Неподдерживаемый период." +
+                " Доступные значения: 60, 300, 900, 1800, 3600, 10800, 21600, 43200, 86400, 604800, 1209600, 2592000 секунд.");
+            }
+
+            return period;
+        }
+
+        public static Dictionary<string, int> GetAvailablePeriodInSec()
+        {
+            return new Dictionary<string, int>()
+            {
+                {"1m",60 },
+                {"5m",300 },
+                {"15m",900 },
+                {"30m",1800 }, 
+                {"1h",3600 },
+                {"3h",10800 },
+                {"6h",21600 },
+                {"12h", 43200 },
+                {"1D",86400 },
+                {"1W",604800 },
+                {"14D",1209600 },
+                {"1M",2592000 }
+            };
+        }
         public static string GetCurrentMethodFullName()
         {
             var methodInfo = MethodBase.GetCurrentMethod();

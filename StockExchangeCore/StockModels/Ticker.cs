@@ -3,6 +3,11 @@
     public class Ticker
     {
         /// <summary>
+        /// Валютная пара
+        /// </summary>
+        public string Pair { get; set; }
+
+        /// <summary>
         /// Цена последней наивысшей ставки
         /// </summary>
         public double Bid { get; set; }

@@ -39,6 +39,7 @@ namespace BitfinexUI.ViewModels
 
             Tabs.Add(new TradesViewModel("Trades", this, connector));
             Tabs.Add(new CandlesViewModel("Candles", this, connector));
+            Tabs.Add(new TickerViewModel("Ticker", this, connector));
 
             SelectedCurrencyPair = CurrencyPairs[0];
         }

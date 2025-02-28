@@ -1,0 +1,35 @@
+<UserControl Background="White" xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:local="clr-namespace:BitfinexUI.ViewModels"
+			 x:DataType="local:TickerViewModel"
+             x:Class="BitfinexUI.Views.TickerView">
+
+	<Grid RowDefinitions="Auto,*" Margin="10">
+
+		<Grid Grid.Row="0" ColumnDefinitions="Auto">
+			<!-- Кнопка для запроса данных -->
+			<Button Content="Fetch ticker" Command="{Binding LoadTickerCommand}" Grid.Row="0" HorizontalAlignment="Left" Width="150" Margin="0 0 0 10"/>
+		</Grid>
+
+		<DataGrid Grid.Row="1" ItemsSource="{Binding Tickers}" AutoGenerateColumns="False" IsReadOnly="True">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Pair" Binding="{Binding Pair}" />
+				<DataGridTextColumn Header="Bid" Binding="{Binding Bid}" />
+				<DataGridTextColumn Header="Ask" Binding="{Binding Ask}" />
+				<DataGridTextColumn Header="Ask Size" Binding="{Binding AskSize}" />
+				<DataGridTextColumn Header="Bid Size" Binding="{Binding BidSize}" />
+				<DataGridTextColumn Header="Last Price" Binding="{Binding LastPrice}" />
+				<DataGridTextColumn Header="Volume" Binding="{Binding Volume}" />
+				<DataGridTextColumn Header="High" Binding="{Binding High}" />
+				<DataGridTextColumn Header="Low" Binding="{Binding Low}" />
+				<DataGridTextColumn Header="Daily Change" Binding="{Binding DailyChange}" />
+				<DataGridTextColumn Header="Daily Change Relative" Binding="{Binding DailyChangeRelative}" />
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+	
+	
+</UserControl>

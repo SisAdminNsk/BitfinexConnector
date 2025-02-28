@@ -7,7 +7,36 @@
 			 x:DataType="local:CandlesViewModel"
              x:Class="BitfinexUI.Views.CandlesView">
 
-	<Grid RowDefinitions="Auto, Auto">
-		<TextBlock Grid.Row="0" Text="{Binding Header}"></TextBlock>
+	<Grid RowDefinitions="Auto,*" Margin="10">
+
+		<Grid Grid.Row="0" ColumnDefinitions="Auto,Auto,Auto">
+			<!-- Кнопка для запроса данных -->
+			<Button Content="Fetch candles" Command="{Binding LoadCandlesCommand}" Grid.Row="0" HorizontalAlignment="Left" Width="150" Margin="0 0 0 10"/>
+			<!-- Кнопка для запроса данных -->
+			<ButtonSpinner x:Name="CandlesCountSpinner" Spin="OnButtonSpinnerSpin" Grid.Column="1" Margin="5 0 0 10" ButtonSpinnerLocation="Right">
+				<TextBlock Text="{Binding CandlesCount, Mode=TwoWay}"></TextBlock>
+			</ButtonSpinner>
+			<ComboBox MaxDropDownHeight="150" Grid.Column="2" x:Name="PeriodComboBox" Margin="5 0 0 10"
+					  ItemsSource="{Binding TimePeriods}"
+					  SelectedItem="{Binding SelectedPeriod}" HorizontalAlignment="Stretch">
+			</ComboBox>
+		</Grid>
+
+		<!-- Таблица для отображения данных -->
+
+		<DataGrid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Candles}">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Pair"  Binding="{Binding Pair}"/>
+				<DataGridTextColumn Header="OpenPrice"  Binding="{Binding OpenPrice}"/>
+				<DataGridTextColumn Header="ClosePrice"  Binding="{Binding ClosePrice}"/>
+				<DataGridTextColumn Header="HighPrice"  Binding="{Binding HighPrice}"/>
+				<DataGridTextColumn Header="LowPrice"  Binding="{Binding LowPrice}"/>
+				<DataGridTextColumn Header="TotalPrice"  Binding="{Binding TotalPrice}"/>
+				<DataGridTextColumn Header="TotalVolume"  Binding="{Binding TotalVolume}"/>
+				<DataGridTextColumn Header="OpenTime"  Binding="{Binding OpenTime}"/>
+			</DataGrid.Columns>
+		</DataGrid>
 	</Grid>
+
 </UserControl>

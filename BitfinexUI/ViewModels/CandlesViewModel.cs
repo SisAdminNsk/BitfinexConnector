@@ -2,6 +2,8 @@
 using StockExchangeCore.Abstract;
 using StockExchangeCore.StockModels;
 using System.Collections.ObjectModel;
+using System.Linq;
+using BitfinexConnector;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -29,6 +31,20 @@ namespace BitfinexUI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _candles, value);
         }
 
+        private string _selectedPeriod;
+        public string SelectedPeriod
+        {
+            get => _selectedPeriod;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedPeriod, value);
+            }
+        }
+
+        public ObservableCollection<string> TimePeriods { get; } =
+            new ObservableCollection<string>(BitfinexUtils.GetAvailablePeriodInSec().Keys.ToList());
+
+
         public CandlesViewModel(string header, RestViewModel parent, IStockExchangeRestConnector stockExchange) : base(header)
         {
             _restViewModel = parent;
@@ -36,6 +52,8 @@ namespace BitfinexUI.ViewModels
             _stockExchange = stockExchange;
 
             LoadCandlesCommand = new RelayCommand(async () => await LoadTradesAsync());
+
+            SelectedPeriod = TimePeriods[0];
         }
 
         public void IncreaseCandlesCount()
@@ -57,6 +75,8 @@ namespace BitfinexUI.ViewModels
         public async Task LoadTradesAsync()
         {
             var selectedPair = _restViewModel.SelectedCurrencyPair;
+
+            PeriodInSec = BitfinexUtils.ConvertPeriodToTimeFrame(SelectedPeriod);
 
             var candles = await _stockExchange.GetCandleSeriesAsync(selectedPair, PeriodInSec, null, null, count: CandlesCount);
 
