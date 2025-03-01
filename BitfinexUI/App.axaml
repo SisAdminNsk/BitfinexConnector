@@ -13,7 +13,6 @@
 		<converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
 	</Application.Resources>
 
-
 	<Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>

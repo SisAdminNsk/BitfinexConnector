@@ -9,9 +9,6 @@
              x:DataType="local:WsViewModel"
              x:Class="BitfinexUI.Views.WsView">
 
-    <UserControl.Resources>
-        <converter:BoolToSubscribeConverter x:Key="BoolToSubscribeConverter" />
-    </UserControl.Resources>
 
 	<TabControl Margin="0 20 0 10" ItemsSource="{Binding Tabs}">
 		<TabControl.ItemTemplate>

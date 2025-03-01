@@ -9,7 +9,8 @@ namespace BitfinexUI.ViewModels
 {
     public class WsTradesViewModel : PageViewModel
     {
-        private CurrencyPairsPannelViewModel _currencyPairsPannel = new();
+
+        private CurrencyPairsPannelViewModel _currencyPairsPannel;
         public ObservableCollection<CurrencyPair> Currencies { get => _currencyPairsPannel.Currencies; }
         public ObservableStack<Trade> Trades { get; set; } = new();
 
@@ -18,6 +19,8 @@ namespace BitfinexUI.ViewModels
         public WsTradesViewModel(string header, IStockExchangeWsConnector stockExchange) : base(header) 
         {
             _stockExchange = stockExchange;
+
+            _currencyPairsPannel = new();
 
             _currencyPairsPannel.CurrencyPairStateChanged += async currency => await SubscribeForCurrencyStateChanged(currency);
 
@@ -28,7 +31,16 @@ namespace BitfinexUI.ViewModels
         {
             if (_stockExchange != null)
             {
-                await SubscribeOrUnsubsribeTrades(currencyPair);
+                _currencyPairsPannel.Block(); 
+
+                try
+                {
+                    await SubscribeOrUnsubsribeTrades(currencyPair);
+                }
+                finally
+                {
+                    _currencyPairsPannel.Unblock(); 
+                }
             }
         }
 

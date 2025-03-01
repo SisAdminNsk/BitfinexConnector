@@ -7,7 +7,8 @@
 			 x:DataType="local:WsTradesViewModel"
              x:Class="BitfinexUI.Views.WsTradesView">
 
-	<Grid RowDefinitions="Auto,*" Margin="10">
+
+	<Grid RowDefinitions="Auto,Auto,*" Margin="10">
 		<Grid Grid.Row="0">
 			<ItemsControl ItemsSource="{Binding Currencies}">
 				<ItemsControl.ItemsPanel>
@@ -32,10 +33,13 @@
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</Grid>
-
-		<Grid Background="White" Grid.Row="1">
+		
+		<Button Margin="0,10,0,10" Grid.Row="1">Clear all trades</Button>
+		
+		<Grid Background="White" Grid.Row="2">
 			<DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Trades}">
+				
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Id"  Binding="{Binding Id}"/>
 					<DataGridTextColumn Header="Pair"  Binding="{Binding Pair}"/>
