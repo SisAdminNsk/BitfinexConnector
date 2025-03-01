@@ -7,6 +7,9 @@ namespace BitfinexConnector
 {
     public class BitfinexWsConnector : IStockExchangeWsConnector
     {
+        private bool _connectedToTradesChannel = false;
+        private bool _connectedToCandlesChannel = false;
+
         private readonly Dictionary<int, string> _tradeChannelIdToPair = new();
         private readonly Dictionary<int, string> _candleChannelIdToPair = new();
 
@@ -28,17 +31,24 @@ namespace BitfinexConnector
             _wsCandleClient.OnMessageReceived += ProcessCandlesWsMessage;
         }
 
-        public async Task ConnectToTradesAsync()
+        private async Task ConnectToTradesAsync()
         {
             await _wsTradeClient.ConnectAsync();
+            _connectedToTradesChannel = true;
         }
-        public async Task ConnectToCandlesAsync()
+        private async Task ConnectToCandlesAsync()
         {
-            await _wsCandleClient.ConnectAsync(); 
+            await _wsCandleClient.ConnectAsync();
+            _connectedToCandlesChannel = true;
         }
 
         public async Task SubscribeTradesAsync(string pair, int maxCount = 100)
         {
+            if (!_connectedToTradesChannel)
+            {
+                await ConnectToTradesAsync();
+            }
+
             var msg = $"{{\"event\":\"subscribe\", \"channel\":\"trades\", \"symbol\":\"t{pair}\"}}";
 
             await _wsTradeClient.SendMessageAsync(msg);
@@ -55,6 +65,11 @@ namespace BitfinexConnector
 
         public async Task SubscribeCandlesAsync(string pair, int periodInSec, DateTimeOffset? from = null, DateTimeOffset? to = null, long? count = 0)
         {
+            if (!_connectedToCandlesChannel)
+            {
+                await ConnectToCandlesAsync();
+            }
+
             var timeFrame = BitfinexUtils.ConvertPeriodToTimeFrame(periodInSec);
 
             string key = $"trade:{timeFrame}:t{pair}";

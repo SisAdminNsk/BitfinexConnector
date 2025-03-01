@@ -16,13 +16,7 @@ namespace BitfinexUI.ViewModels
             }
         }
 
-        public ObservableCollection<string> CurrencyPairs { get; } = new ObservableCollection<string>
-        {
-            "BTCUSD",
-            "XRPUSD",
-            "XMRUSD",
-            "DSHUSD"
-        };
+        public ObservableCollection<string> CurrencyPairs { get; } = new();
 
         private ObservableCollection<ViewModelBase> _tabs =
             new ObservableCollection<ViewModelBase>();
@@ -40,6 +34,13 @@ namespace BitfinexUI.ViewModels
             Tabs.Add(new TradesViewModel("Trades", this, connector));
             Tabs.Add(new CandlesViewModel("Candles", this, connector));
             Tabs.Add(new TickerViewModel("Ticker", this, connector));
+
+            var pairs = BitfinexUtils.GetAvaliableCurrencyPairs();
+
+            foreach (var pair in pairs)
+            {
+                CurrencyPairs.Add(pair);
+            }
 
             SelectedCurrencyPair = CurrencyPairs[0];
         }

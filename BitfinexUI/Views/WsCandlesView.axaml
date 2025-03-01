@@ -6,4 +6,37 @@
 			 xmlns:local="clr-namespace:BitfinexUI.ViewModels"
 			 x:DataType="local:WsCandlesViewModel"
              x:Class="BitfinexUI.Views.WsCandlesView">
+
+	<Grid RowDefinitions="Auto,*" Margin="10">
+		<Grid Grid.Row="0">
+			<ItemsControl ItemsSource="{Binding Currencies}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal" Margin="10">
+							<TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+							<Button Content="{Binding IsSubscribed, Converter={StaticResource BoolToSubscribeConverter}}"
+                                    Command="{Binding SubscribeCommand}"
+                                    CommandParameter="{Binding}"
+									Background="{Binding IsSubscribed, Converter={StaticResource BoolToColorConverter}}"
+									Width="110"
+									VerticalContentAlignment="Center"
+									HorizontalContentAlignment="Center"/>
+
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</Grid>
+
+		<Grid Background="White"  Grid.Row="1">
+			
+		</Grid>
+	</Grid>
+	
+	
 </UserControl>
