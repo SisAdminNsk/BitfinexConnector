@@ -50,6 +50,17 @@ namespace BitfinexConnector
                 {"1M",2592000 }
             };
         }
+
+        public static List<string> GetAvaliableCurrencyPairs()
+        {
+            return new List<string>()
+            {
+                "BTCUSD",
+                "XRPUSD",
+                "XMRUSD",
+                "DSHUSD"
+            };
+        }
         public static string GetCurrentMethodFullName()
         {
             var methodInfo = MethodBase.GetCurrentMethod();

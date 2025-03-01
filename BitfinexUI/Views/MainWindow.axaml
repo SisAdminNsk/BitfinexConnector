@@ -17,7 +17,6 @@
 
 
 	<TabControl ItemsSource="{Binding Tabs}">
-		<!-- Шаблон для заголовка вкладки -->
 		<TabControl.ItemTemplate>
 			<DataTemplate DataType="vm:PageViewModel">
 				<TextBlock Text="{Binding Header}" />

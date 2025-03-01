@@ -10,7 +10,7 @@
 	<Grid RowDefinitions="Auto,*" Margin="10">
 
 		<Grid Grid.Row="0" ColumnDefinitions="Auto">
-			<!-- Кнопка для запроса данных -->
+		
 			<Button Content="Fetch ticker" Command="{Binding LoadTickerCommand}" Grid.Row="0" HorizontalAlignment="Left" Width="150" Margin="0 0 0 10"/>
 		</Grid>
 

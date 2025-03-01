@@ -2,10 +2,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="BitfinexUI.App"
              xmlns:local="using:BitfinexUI"
+			 xmlns:converters="using:BitfinexUI.Converters"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-    <Application.DataTemplates>
+	
+	
+	<Application.Resources>
+		<converters:BoolToSubscribeConverter x:Key="BoolToSubscribeConverter" />
+		<converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+	</Application.Resources>
+
+
+	<Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
 
@@ -14,7 +23,6 @@
 			<Setter Property="Background" Value="#62cfb5"/>
 			<Setter Property="Foreground" Value="White"/>
 			<!-- Цвет текста -->
-			<Setter Property="BorderBrush" Value="#62cfb5"/>
 			<!-- Цвет границы -->
 			<Setter Property="BorderThickness" Value="2"/>
 			<!-- Толщина границы -->

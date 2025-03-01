@@ -30,7 +30,7 @@ namespace BitfinexUI.ViewModels
 
             _stockExchange = stockExchange;
 
-            LoadTradesCommand = new RelayCommand(async () => await LoadTradesAsync());
+            LoadTradesCommand = ReactiveCommand.Create(async () => await LoadTradesAsync());
         }
 
         public void IncreaseTradesCount()

@@ -1,0 +1,52 @@
+<UserControl Background="#e8faf6" xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:BitfinexUI.ViewModels"
+             xmlns:local="clr-namespace:BitfinexUI.ViewModels"
+             xmlns:converter="clr-namespace:BitfinexUI.Converters"
+             x:DataType="local:WsViewModel"
+             x:Class="BitfinexUI.Views.WsView">
+
+    <UserControl.Resources>
+        <converter:BoolToSubscribeConverter x:Key="BoolToSubscribeConverter" />
+    </UserControl.Resources>
+
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <Grid Grid.Row="0">
+            <ItemsControl ItemsSource="{Binding Currencies}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Button Content="{Binding IsSubscribed, Converter={StaticResource BoolToSubscribeConverter}}"
+                                    Command="{Binding SubscribeCommand}"
+                                    CommandParameter="{Binding}"
+									Background="{Binding IsSubscribed, Converter={StaticResource BoolToColorConverter}}"
+									Width="110" 
+									VerticalContentAlignment="Center" 
+									HorizontalContentAlignment="Center"/>
+							
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <TabControl Margin="0 20 0 10" ItemsSource="{Binding Tabs}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate DataType="vm:PageViewModel">
+                        <TextBlock Text="{Binding Header}" />
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+            </TabControl>
+        </Grid>
+    </Grid>
+</UserControl>

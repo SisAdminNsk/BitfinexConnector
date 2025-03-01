@@ -18,7 +18,7 @@ namespace BitfinexUI.ViewModels
         public MainWindowViewModel()
         {
             Tabs.Add(new RestViewModel("Rest"));
-            Tabs.Add(new RestViewModel("Websocket"));
+            Tabs.Add(new WsViewModel("Websocket"));
         }
     }
 }

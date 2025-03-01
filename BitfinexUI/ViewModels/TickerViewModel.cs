@@ -1,4 +1,5 @@
-﻿using StockExchangeCore.Abstract;
+﻿using ReactiveUI;
+using StockExchangeCore.Abstract;
 using StockExchangeCore.StockModels;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace BitfinexUI.ViewModels
             _stockExchange = restConnector;
             _restViewModel = parent;
 
-            LoadTickerCommand = new RelayCommand(async () => await LoadTickerAsync());
+            LoadTickerCommand = ReactiveCommand.Create(async () => await LoadTickerAsync());
         }
 
         public async Task LoadTickerAsync()

@@ -51,7 +51,7 @@ namespace BitfinexUI.ViewModels
 
             _stockExchange = stockExchange;
 
-            LoadCandlesCommand = new RelayCommand(async () => await LoadTradesAsync());
+            LoadCandlesCommand = ReactiveCommand.Create(async () => await LoadCandlesAsync());
 
             SelectedPeriod = TimePeriods[0];
         }
@@ -72,7 +72,7 @@ namespace BitfinexUI.ViewModels
             }
         }
 
-        public async Task LoadTradesAsync()
+        public async Task LoadCandlesAsync()
         {
             var selectedPair = _restViewModel.SelectedCurrencyPair;
 
