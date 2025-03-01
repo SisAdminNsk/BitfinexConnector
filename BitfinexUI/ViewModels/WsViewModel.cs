@@ -1,5 +1,4 @@
-﻿using BitfinexConnector;
-using ReactiveUI;
+﻿using ReactiveUI;
 using StockExchangeCore.Abstract;
 using System.Collections.ObjectModel;
 
@@ -16,12 +15,10 @@ namespace BitfinexUI.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _tabs, value);
         }
 
-        public WsViewModel(string header) : base(header) 
+        public WsViewModel(string header, IStockExchangeWsConnector stockExchange) : base(header) 
         {
-            IStockExchangeWsConnector connector = new BitfinexWsConnector("wss://api-pub.bitfinex.com/ws/2");
-
-            Tabs.Add(new WsTradesViewModel("Trades", connector));
-            Tabs.Add(new WsCandlesViewModel("Candles", connector));
+            Tabs.Add(new WsTradesViewModel("Trades", stockExchange));
+            Tabs.Add(new WsCandlesViewModel("Candles", stockExchange));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using ReactiveUI;
+﻿using BitfinexConnector;
+using ReactiveUI;
+using StockExchangeCore.Abstract;
 using System.Collections.ObjectModel;
 
 namespace BitfinexUI.ViewModels
@@ -17,8 +19,12 @@ namespace BitfinexUI.ViewModels
 
         public MainWindowViewModel()
         {
-            Tabs.Add(new RestViewModel("Rest"));
-            Tabs.Add(new WsViewModel("Websocket"));
+            IStockExchangeRestConnector restConnector = new BitfinexRestConnector("https://api-pub.bitfinex.com/v2/");
+            IStockExchangeWsConnector wsConnector = new BitfinexWsConnector("wss://api-pub.bitfinex.com/ws/2");
+
+            Tabs.Add(new RestViewModel("Rest", restConnector));
+            Tabs.Add(new WsViewModel("Websocket", wsConnector));
+            Tabs.Add(new PortfolioViewModel("Portfolio", restConnector));
         }
     }
 }

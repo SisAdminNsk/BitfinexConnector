@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using BitfinexConnector;
+using StockExchangeCore.Abstract;
 
 namespace BitfinexUI.ViewModels
 {
@@ -27,13 +28,11 @@ namespace BitfinexUI.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _tabs, value);
         }
 
-        public RestViewModel(string header) : base(header)
+        public RestViewModel(string header, IStockExchangeRestConnector stockExchange) : base(header)
         {
-            var connector = new BitfinexRestConnector("https://api-pub.bitfinex.com/v2/");
-
-            Tabs.Add(new TradesViewModel("Trades", this, connector));
-            Tabs.Add(new CandlesViewModel("Candles", this, connector));
-            Tabs.Add(new TickerViewModel("Ticker", this, connector));
+            Tabs.Add(new TradesViewModel("Trades", this, stockExchange));
+            Tabs.Add(new CandlesViewModel("Candles", this, stockExchange));
+            Tabs.Add(new TickerViewModel("Ticker", this, stockExchange));
 
             var pairs = BitfinexUtils.GetAvaliableCurrencyPairs();
 

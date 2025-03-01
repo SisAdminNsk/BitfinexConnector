@@ -1,0 +1,26 @@
+<UserControl Background="#e8faf6" xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="using:BitfinexUI.ViewModels"
+			 xmlns:local="clr-namespace:BitfinexUI.ViewModels"
+			 x:DataType="local:PortfolioViewModel"
+             x:Class="BitfinexUI.Views.PortfolioView">
+
+	<Grid RowDefinitions="Auto,*">
+		
+		<Button Margin="10,10,0,10" Command="{Binding CalculateTotalBalanceCommand}" Grid.Row="0">Calculate total balance</Button>
+
+		<DataGrid Background="White" Grid.Row="1" ItemsSource="{Binding Balances}" AutoGenerateColumns="False" IsReadOnly="True">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Currency" Binding="{Binding Currency}" />
+				<DataGridTextColumn Header="Balance" Binding="{Binding Balance, StringFormat='{}{0:N2}'}" />
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+
+
+
+
+</UserControl>
