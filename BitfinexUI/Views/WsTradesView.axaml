@@ -34,7 +34,7 @@
 			</ItemsControl>
 		</Grid>
 		
-		<Button Margin="0,10,0,10" Grid.Row="1">Clear all trades</Button>
+		<Button Margin="0,10,0,10" Grid.Row="1" Command="{Binding ClearTradesCommand}">Clear all trades</Button>
 		
 		<Grid Background="White" Grid.Row="2">
 			<DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"

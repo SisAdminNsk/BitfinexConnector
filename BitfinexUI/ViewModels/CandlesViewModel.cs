@@ -22,14 +22,7 @@ namespace BitfinexUI.ViewModels
 
         private int _candlesCount = 20;
         public int CandlesCount { get => _candlesCount; private set => this.RaiseAndSetIfChanged(ref _candlesCount, value); }
-
-
-        private ObservableCollection<Candle> _candles = new();
-        public ObservableCollection<Candle> Candles
-        {
-            get => _candles;
-            set => this.RaiseAndSetIfChanged(ref _candles, value);
-        }
+        public ObservableCollection<Candle> Candles { get; set; } = new();
 
         private string _selectedPeriod;
         public string SelectedPeriod
